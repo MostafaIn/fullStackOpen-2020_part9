@@ -8,7 +8,7 @@ interface Result {
     average: number
 }
 
-const calculateExercises = (dailyH: number[], target: number): Result => {
+const calculateExercises = ( target: number, dailyH: number[]): Result => {
     const periodLength = dailyH.length,
     trainingDays = dailyH.filter( h => h > 0).length,
     totalHours = dailyH.reduce( (t, h) => t + h, 0),
@@ -43,4 +43,34 @@ const calculateExercises = (dailyH: number[], target: number): Result => {
     }
 }
 
-console.log(calculateExercises([3,0,2,4.5,0,3,1], 2))
+
+interface exerciseARGs {
+    target: number,
+    dailyH: number[]
+}
+
+const exercise_ParseArguments = (args: Array<string>): exerciseARGs => {
+    if(args.length < 4) throw new Error("not enough arguments")
+    if(args.length > 12) throw new Error("too many arguments")
+
+    const target = Number(args[2]),
+    dailyH = args.slice(3).map( h => Number(h)),
+    isNaNDailyH = dailyH.some( h => !isNaN(h))
+
+    if(!isNaN(target) && isNaNDailyH){
+        return {
+            target,
+            dailyH
+        }
+    }else{
+        throw new Error("provided values were not numbers!")
+    }
+}
+try {
+    const { target, dailyH } = exercise_ParseArguments(process.argv)
+    console.log(calculateExercises(target,dailyH))
+} catch (err) {
+    console.log('something bad happened, ', err.message)
+}
+
+

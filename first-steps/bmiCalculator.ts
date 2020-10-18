@@ -1,4 +1,4 @@
-const calculateBMI = (height: number, weight: number): string => {
+export const calculateBMI = (height: number, weight: number): string => {
     let bmi = weight / (height / 100) ** 2;
     
     if(bmi < 16){

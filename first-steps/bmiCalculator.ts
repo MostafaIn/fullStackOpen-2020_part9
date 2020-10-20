@@ -36,6 +36,7 @@ try {
     const { value1, value2 } = bmi_parseArguments(process.argv);
     console.log(calculateBMI(value1, value2));
 } catch (err) {
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
     console.log('something bad happened, ', err.message);
 }
 

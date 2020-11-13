@@ -1,10 +1,6 @@
 import React from 'react';
 import Part from './Part';
-
-interface CoursePart {
-  name: string;
-  exerciseCount: number;
-}
+import {CoursePart} from '../types'
 
 const Content: React.FC<{
   courseParts: CoursePart[];

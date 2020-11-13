@@ -35,12 +35,16 @@ var getPatients = function () {
         });
     });
 };
+var getPatient = function (id) {
+    return patients.find(function (patient) { return patient.id === id; });
+};
 var addPatient = function (patient) {
-    var newPatient = __assign({ id: Math.floor(Math.random() * 10000).toString() }, patient);
+    var newPatient = __assign(__assign({ id: Math.floor(Math.random() * 10000).toString() }, patient), { entries: [] });
     __spreadArrays(patients, [newPatient]);
     return newPatient;
 };
 exports.default = {
     getPatients: getPatients,
+    getPatient: getPatient,
     addPatient: addPatient,
 };

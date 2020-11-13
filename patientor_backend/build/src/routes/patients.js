@@ -11,6 +11,11 @@ var router = express_1.default.Router();
 router.get('/', function (_req, res) {
     res.send(patientsServices_1.default.getPatients());
 });
+router.get('/:id', function (req, res) {
+    console.log(req.params.id);
+    var patient = patientsServices_1.default.getPatient(req.params.id);
+    res.send(patient);
+});
 router.post('/', function (req, res) {
     try {
         var newPatient = utils_1.default(req.body);

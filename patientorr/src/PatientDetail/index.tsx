@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import axios from 'axios';
-import { Card, Icon, SemanticICONS } from 'semantic-ui-react';
+import { Card, Divider, Icon, SemanticICONS } from 'semantic-ui-react';
 
 import { Patient, Gender } from '../types';
 import { apiBaseUrl } from '../constants';
@@ -45,7 +45,7 @@ const PatientDetail: React.FC = () => {
   return (
     <React.Fragment>
       {patient && (
-        <Card>
+        <Card style={{ minWidth: '50%' }}>
           <Card.Content>
             <Card.Header>
               {patient.name} <Icon name={genderICON(patient.gender)} />
@@ -55,6 +55,23 @@ const PatientDetail: React.FC = () => {
               occupation: {patient.occupation}
             </Card.Description>
           </Card.Content>
+          {patient?.entries.length > 0 && (
+            <Card.Content>
+              <Card.Header>Entries</Card.Header>
+              {patient.entries.map((entry) => (
+                <Card.Description key={entry.id}>
+                  {entry.date}
+                  {''} {entry.description}
+                  {entry.diagnosisCodes?.map((code) => (
+                    <ul key={code + 1}>
+                      <li>{code}</li>
+                    </ul>
+                  ))}
+                  <Divider />
+                </Card.Description>
+              ))}
+            </Card.Content>
+          )}
         </Card>
       )}
     </React.Fragment>

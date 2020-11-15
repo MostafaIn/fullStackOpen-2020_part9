@@ -1,9 +1,8 @@
-import diagnosesData from '../../data/diagnoses.json';
+import diagnoses from '../../data/diagnoses';
 import { Diagnosis } from '../types';
 
-const diagnoses: Array<Diagnosis> = diagnosesData;
+// const diagnoses: Array<Diagnosis> = diagnosesData;
 
-// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 const getDiagnoses = (): Array<Diagnosis> => {
   return diagnoses;
 };

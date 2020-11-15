@@ -10,7 +10,7 @@ import { useStateValue, updatePatient } from '../state';
 const PatientDetail: React.FC = () => {
   const [patient, setPatient] = useState<Patient | undefined>();
   const { id } = useParams<{ id: string }>();
-  const [{ patients }, dispatch] = useStateValue();
+  const [{ patients, diagnoses }, dispatch] = useStateValue();
 
   useEffect(() => {
     const fetchPatient = async () => {
@@ -24,6 +24,7 @@ const PatientDetail: React.FC = () => {
         console.log(err.message);
       }
     };
+
     if (patients[id] && patients[id].ssn) {
       setPatient(patients[id]);
     } else {
@@ -41,7 +42,12 @@ const PatientDetail: React.FC = () => {
         return 'other gender';
     }
   };
-  console.log(patient);
+
+  const getcodeName = (code: string): string => {
+    return diagnoses[code]?.name;
+  };
+
+  console.log(diagnoses);
   return (
     <React.Fragment>
       {patient && (
@@ -64,7 +70,9 @@ const PatientDetail: React.FC = () => {
                   {''} {entry.description}
                   {entry.diagnosisCodes?.map((code) => (
                     <ul key={code + 1}>
-                      <li>{code}</li>
+                      <li>
+                        {code} {getcodeName(code)}
+                      </li>
                     </ul>
                   ))}
                   <Divider />

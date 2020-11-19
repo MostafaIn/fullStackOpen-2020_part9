@@ -1,7 +1,8 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, Fragment } from 'react';
 import { useParams } from 'react-router-dom';
 import axios from 'axios';
-import { Card, Divider, Icon, SemanticICONS } from 'semantic-ui-react';
+import EntryDetails from './EntryDetails';
+import { Card, Icon, SemanticICONS } from 'semantic-ui-react';
 
 import { Patient, Gender } from '../types';
 import { apiBaseUrl } from '../constants';
@@ -43,15 +44,15 @@ const PatientDetail: React.FC = () => {
     }
   };
 
-  const getcodeName = (code: string): string => {
-    return diagnoses[code]?.name;
-  };
+  // const getcodeName = (code: string): string => {
+  //   return diagnoses[code]?.name;
+  // };
 
   console.log(diagnoses);
   return (
     <React.Fragment>
       {patient && (
-        <Card style={{ minWidth: '50%' }}>
+        <Card style={{ minWidth: '80%' }}>
           <Card.Content>
             <Card.Header>
               {patient.name} <Icon name={genderICON(patient.gender)} />
@@ -65,18 +66,9 @@ const PatientDetail: React.FC = () => {
             <Card.Content>
               <Card.Header>Entries</Card.Header>
               {patient.entries.map((entry) => (
-                <Card.Description key={entry.id}>
-                  {entry.date}
-                  {''} {entry.description}
-                  {entry.diagnosisCodes?.map((code) => (
-                    <ul key={code + 1}>
-                      <li>
-                        {code} {getcodeName(code)}
-                      </li>
-                    </ul>
-                  ))}
-                  <Divider />
-                </Card.Description>
+                <Fragment key={entry.id}>
+                  <EntryDetails entry={entry} />
+                </Fragment>
               ))}
             </Card.Content>
           )}

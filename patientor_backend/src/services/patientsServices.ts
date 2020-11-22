@@ -1,6 +1,6 @@
 import patients from '../../data/patients';
 
-import { Patient, NewPatient, PublicPatient } from '../types';
+import { Patient, NewPatient, PublicPatient, Entry } from '../types';
 
 // const patients: Array<Patient> = patientData as Patient[];
 
@@ -29,8 +29,18 @@ const addPatient = (patient: NewPatient): Patient => {
   return newPatient;
 };
 
+const addEntry = (patientId: string, entry: Entry): Entry => {
+  const patient: Patient | undefined = getPatient(patientId);
+  if (!patient) {
+    throw new Error('Incorrect patient Id');
+  }
+  patient.entries.push(entry);
+  return entry;
+};
+
 export default {
   getPatients,
   getPatient,
   addPatient,
+  addEntry,
 };

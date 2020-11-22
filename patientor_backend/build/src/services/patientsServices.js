@@ -43,8 +43,17 @@ var addPatient = function (patient) {
     __spreadArrays(patients_1.default, [newPatient]);
     return newPatient;
 };
+var addEntry = function (patientId, entry) {
+    var patient = getPatient(patientId);
+    if (!patient) {
+        throw new Error('Incorrect patient Id');
+    }
+    patient.entries.push(entry);
+    return entry;
+};
 exports.default = {
     getPatients: getPatients,
     getPatient: getPatient,
     addPatient: addPatient,
+    addEntry: addEntry,
 };

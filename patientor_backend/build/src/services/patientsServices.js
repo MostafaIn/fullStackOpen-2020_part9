@@ -10,13 +10,6 @@ var __assign = (this && this.__assign) || function () {
     };
     return __assign.apply(this, arguments);
 };
-var __spreadArrays = (this && this.__spreadArrays) || function () {
-    for (var s = 0, i = 0, il = arguments.length; i < il; i++) s += arguments[i].length;
-    for (var r = Array(s), k = 0, i = 0; i < il; i++)
-        for (var a = arguments[i], j = 0, jl = a.length; j < jl; j++, k++)
-            r[k] = a[j];
-    return r;
-};
 var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
@@ -40,16 +33,14 @@ var getPatient = function (id) {
 };
 var addPatient = function (patient) {
     var newPatient = __assign(__assign({ id: Math.floor(Math.random() * 10000).toString() }, patient), { entries: [] });
-    __spreadArrays(patients_1.default, [newPatient]);
+    patients_1.default.push(newPatient);
     return newPatient;
 };
-var addEntry = function (patientId, entry) {
-    var patient = getPatient(patientId);
-    if (!patient) {
-        throw new Error('Incorrect patient Id');
-    }
-    patient.entries.push(entry);
-    return entry;
+var addEntry = function (patient, newEntry) {
+    var id = Math.floor(Math.random() * 10000).toString();
+    var entryToAdd = __assign(__assign({}, newEntry), { id: id });
+    patient.entries.push(entryToAdd);
+    return patient;
 };
 exports.default = {
     getPatients: getPatients,

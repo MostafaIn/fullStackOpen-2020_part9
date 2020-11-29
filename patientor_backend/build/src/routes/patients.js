@@ -28,9 +28,12 @@ router.post('/', function (req, res) {
 });
 router.post('/:id/entries', function (req, res) {
     try {
+        var patient = patientsServices_1.default.getPatient(req.params.id);
         var newEntry = utils_1.toNewEntry(req.body);
-        var addedEntry = patientsServices_1.default.addEntry(req.params.id, newEntry);
-        res.json(addedEntry);
+        if (patient && newEntry) {
+            var addedEntry = patientsServices_1.default.addEntry(patient, newEntry);
+            res.json(addedEntry);
+        }
     }
     catch (err) {
         res.status(400).send(err.message);
